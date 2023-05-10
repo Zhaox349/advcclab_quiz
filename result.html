@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Result</title>
+    <link rel="stylesheet" href="result.css" />
+    <link rel="stylesheet" href="content.css" />
+    <link rel="stylesheet" href="https://unpkg.com/vant@2.12/lib/index.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
+
+    <script src="https://unpkg.com/vant@2.12/lib/vant.min.js"></script>
+
+    <style>
+      *,
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      li {
+        list-style-type: none;
+      }
+      .page {
+        margin: 0 auto;
+        position: relative;
+        background: #a7d168;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" class="page">
+      <div class="result">
+        <div class="top" id="resultTop">
+          <!-- <div class="center">养生绝不放松，走上人生巅峰</div> -->
+
+          <!-- <div v-if="share" class="fenxiangtishi" @click="onCloseShare">
+            <img
+              src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAA/ElEQVQ4T62UMUpDQRRFz60lgmBnYSlZhRCwcAWCjY2Qxg1kA9mBrYSIrsDU6dyBYCOkSpGswDRXBv6X8WfeBORPOcwczn13GNHTUk8c+gfZHgDfknY1S9tnwE7SNj/3a2T7HTgGRpI2JZjtS+ANWEu6iEA3wAvwWYI1kAVwBDxKeiiC0qbtW2DehXUgT8C9JIegEgwYAq1JEZLuFVvLzL6ANNwUJ4SEoMZsCkwa/WfgrhunGq2BpHbaOGnro9Zm0agw2CUwi9psrf7MKGonajN6R3mcvcEeguUvewWc19rJYEtJV5HRGDgFprV2bF8DJ5JeD7b2n6+lt2/kB8acehM8SkhBAAAAAElFTkSuQmCC"
+              class="fenxiangtishiimg"
+            />
+            <span class="fenxianghaoyou" style="color: rgb(255, 255, 255)"
+              >分享给好友测一测</span
+            >
+          </div> -->
+        </div>
+        <div class="my">
+          <div class="label">Your constitution</div>
+          <div class="tizhi">{{ result.physical }}</div>
+        </div>
+        <div class="both" v-if="result.both.length > 0">
+          <div class="title">Having both physical fitness</div>
+          <div class="value">{{ strFilter(result.both) }}</div>
+        </div>
+
+        <!-- <div class="tender" v-if="result.tenden.length > 0">
+          <div class="title">Propensity to constitution</div>
+          <div class="value">{{ strFilter(result.tenden) }}</div>
+        </div> -->
+
+        <div id="echart"></div>
+
+        <!-- <div class="score-result">
+      <h5 class="title">得分：</h5>
+      <ol class="list-group">
+        <li class="list-group-item">平和质：{{ PingheScore }}分</li>
+        <li class="list-group-item">气虚质：{{ QiXuScore }}分</li>
+        <li class="list-group-item">阳虚质：{{ YangXuScore }}分</li>
+        <li class="list-group-item">阴虚质：{{ YingXuScore }}分</li>
+        <li class="list-group-item">痰湿质：{{ TanShiScore }}分</li>
+        <li class="list-group-item">湿热质：{{ ShiReScore }}分</li>
+        <li class="list-group-item">血瘀质：{{ XueYuScore }}分</li>
+        <li class="list-group-item">气郁质：{{ QiYuScore }}分</li>
+        <li class="list-group-item">特禀质：{{ TeBingScore }}分</li>
+      </ol>
+    </div> -->
+
+        <div class="health-guide">
+          <van-tabs v-model:active="active" type="card">
+            <van-tab
+              v-for="item in result.healthGuide"
+              :key="item.id"
+              :title="item.name"
+              color="#a7d168"
+            >
+              <div class="health-guide__content">
+                <div class="row">
+                  <label>🟡</label>
+                  <div style="margin-left: 10px">
+                    <span style="font-weight: 600">
+                      Common manifestations:</span
+                    >
+                    {{ item.changjianbiaoxian }}
+                  </div>
+                </div>
+                <div class="row">
+                  <label>🟡</label>
+                  <div style="margin-left: 10px">
+                    <span style="font-weight: 600"
+                      >Physical characteristics:</span
+                    >
+                    {{ item.xingtitezheng }}
+                  </div>
+                </div>
+                <div class="row">
+                  <label>🟡</label>
+                  <div style="margin-left: 10px">
+                    <span style="font-weight: 600">
+                      Mental characteristics:
+                    </span>
+                    {{ item.jingshentezheng }}
+                  </div>
+                </div>
+                <div class="row">
+                  <label>🟡 </label>
+                  <div style="margin-left: 10px">
+                    <span style="font-weight: 600">
+                      Psychological feature:
+                    </span>
+                    {{ item.xinlitezheng }}
+                  </div>
+                </div>
+                <!-- <div class="row">
+                  <label>🟡&nbsp; 发病倾向：</label>{{ item.fabingqingxiang }}
+                </div> -->
+                <div class="row" style="margin-top: 15px">
+                  <label
+                    >🟡<span style="margin-left: 10px"
+                      >Maintenance methods:</span
+                    >
+                  </label>
+                </div>
+                <ul class="recuperation-method">
+                  <li
+                    v-for="op in item.tiaoyangfangshi"
+                    :key="op"
+                    style="display: flex; margin-bottom: 14px"
+                  >
+                    <div>✅</div>
+                    <div style="margin-left: 10px">{{ op }}</div>
+                  </li>
+                </ul>
+              </div>
+            </van-tab>
+          </van-tabs>
+        </div>
+
+        <!-- <div class="howto">
+          <span></span>
+          <div class="title">我是{{ result.physical }}，该怎么办？</div>
+          <span></span>
+        </div> -->
+
+        <div class="retest" @click="onRetest">Retest</div>
+      </div>
+    </div>
+
+    <script>
+      var vm = new Vue({
+        el: "#app",
+        data: function () {
+          return {
+            share: true,
+
+            PingheScore: 0,
+            QiXuScore: 0,
+            YangXuScore: 0,
+            YingXuScore: 0,
+            TanShiScore: 0,
+            ShiReScore: 0,
+            XueYuScore: 0,
+            QiYuScore: 0,
+            TeBingScore: 0,
+
+            result: {
+              isPinghe: null, // 是否平和
+              physical: "", // 当前体质
+              both: [], // 兼有体质（去掉最高分）
+              tenden: [], // 体质倾向
+              healthGuide: [], // 健康建议
+            },
+
+            active: 0,
+          };
+        },
+        methods: {
+          onCloseShare() {
+            this.share = false;
+          },
+
+          onRetest() {
+            location.href = "index.html";
+          },
+
+          initChart({
+            PingheScore,
+            QiXuScore,
+            YangXuScore,
+            YingXuScore,
+            TanShiScore,
+            ShiReScore,
+            XueYuScore,
+            QiYuScore,
+            TeBingScore,
+          }) {
+            let xAxisData =
+              PingheScore >= 60
+                ? [
+                    "平和",
+                    "气虚",
+                    "阳虚",
+                    "阴虚",
+                    "痰湿",
+                    "湿热",
+                    "血瘀",
+                    "气郁",
+                    "特禀",
+                  ]
+                : [
+                    "气虚",
+                    "阳虚",
+                    "阴虚",
+                    "痰湿",
+                    "湿热",
+                    "血瘀",
+                    "气郁",
+                    "特禀",
+                  ];
+            let yAxisData =
+              PingheScore >= 60
+                ? [
+                    PingheScore,
+                    QiXuScore,
+                    YangXuScore,
+                    YingXuScore,
+                    TanShiScore,
+                    ShiReScore,
+                    XueYuScore,
+                    QiYuScore,
+                    TeBingScore,
+                  ]
+                : [
+                    QiXuScore,
+                    YangXuScore,
+                    YingXuScore,
+                    TanShiScore,
+                    ShiReScore,
+                    XueYuScore,
+                    QiYuScore,
+                    TeBingScore,
+                  ];
+            this.$nextTick(() => {
+              const chartDom = document.getElementById("echart");
+              const myChart = echarts.init(chartDom);
+              myChart.setOption({
+                grid: {
+                  top: "3%",
+                  left: "3%",
+                  right: "9%",
+                  bottom: "3%",
+                  containLabel: true,
+                },
+                xAxis: {
+                  type: "category",
+                  data: xAxisData,
+                },
+                yAxis: {
+                  type: "value",
+                  show: false,
+                  max: 100,
+                },
+                visualMap: {
+                  show: false,
+                  pieces: [
+                    {
+                      gt: 0,
+                      lte: 40,
+                      color: "#007aff",
+                    },
+                    {
+                      gt: 40,
+                      //中间部分颜色显示
+                      color: "#ed6858",
+                    },
+                    {
+                      gt: 100, //这儿设置基线上下颜色区分 基线上面为红色
+                      color: "#ed6858",
+                    },
+                  ],
+                },
+                series: [
+                  {
+                    data: yAxisData,
+                    type: "bar",
+                    showBackground: true,
+                    markLine: {
+                      lineStyle: { type: "solid", width: 1 },
+                      data: [{ type: "average", yAxis: 40 }],
+                      label: {
+                        normal: {
+                          formatter: "判定", // 这儿设置安全基线
+                        },
+                      },
+                    },
+                  },
+                ],
+              });
+
+              this.$nextTick(() => {
+                setTimeout(() => {
+                  document.getElementById(`resultTop`).scrollIntoView({
+                    block: "start",
+                    behavior: "auto",
+                  });
+                }, 300);
+              });
+            });
+          },
+
+          strFilter: function (v) {
+            if (v && v.length > 0) {
+              return v.join("、");
+            }
+            return "";
+          },
+        },
+
+        mounted() {
+          const r = localStorage.getItem("RESULT");
+          const data = JSON.parse(r);
+
+          this.result = data.result;
+          this.initChart(data.score);
+        },
+      });
+
+      Vue.use(vant.Tab);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,145 @@
+.content {
+  background: #a7d168;
+  position: relative;
+  overflow-y: scroll;
+  height: 100vh;
+}
+
+.content .top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #a7d168;
+}
+
+.content .top-title {
+  height: 60px;
+  text-align: left;
+  padding-left: 15px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+}
+.content .top-title__main-title {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 500;
+  color: #242421;
+}
+.content .right {
+  margin-left: 10px;
+}
+.content .top-title__main-title__text {
+  font-size: 20px;
+}
+.content .top-title__sub-title {
+  font-size: 14px;
+  color: #32373a;
+}
+
+.content .info {
+  padding-left: 15px;
+  height: 30px;
+  font-size: 16px;
+  color: #32373a;
+}
+
+.content .quesitem {
+  overflow-y: scroll;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  height: calc(100% - 200px);
+  position: fixed;
+  top: 100px;
+  bottom: 100px;
+  margin: 0 120px;
+  left: 0;
+  right: 0;
+}
+.content .quesitem #problem {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 25px;
+  font-family: "Arial Black";
+  font-style: normal;
+  font-weight: 900;
+  font-size: 23px;
+  line-height: 32px;
+  text-align: center;
+}
+
+.content .quesitem li {
+  width: 100%;
+  margin-bottom: calc(100vh / 14);
+}
+.content .quesitem li .radio-inline {
+  margin-right: 5px;
+  font-size: 15px;
+}
+.content .quesitem li .radio-inline input {
+  margin-right: 5px;
+}
+
+.content .submit-btn {
+  width: 140px;
+  height: 35px;
+  background-color: #f2e650;
+  border: 2px solid #32373a;
+  border-radius: 8px;
+  line-height: 35px;
+  text-align: center;
+  margin: 20px auto 0;
+  border-radius: 12px;
+  color: #32373a;
+  font-size: 14px;
+  font-weight: 500;
+  position: fixed;
+  bottom: 30px;
+  left: 0;
+  right: 0;
+}
+
+.content .progress {
+  margin: 0 139px;
+  position: fixed;
+  top: 0;
+  height: 100px;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+}
+
+.content .progress .text {
+  color: #71ab0b;
+  font-family: "Arial";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 23px;
+  line-height: 26px;
+  text-align: center;
+  margin-right: 20px;
+}
+
+progress {
+  flex: 1;
+  background-color: #e6e6e6;
+  color: #f2e650; /*IE10*/
+  height: 6px;
+  border-radius: 20px;
+}
+
+progress::-moz-progress-bar {
+  background: #f2e650;
+}
+progress::-webkit-progress-bar {
+  background: #f2e650;
+}
+progress::-webkit-progress-value {
+  background: #71ab0b;
+}
